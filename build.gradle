@@ -5,7 +5,7 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
 group 'org.netvirta'
-version '0.0.1-SNAPSHOT'
+version '0.0.4-SNAPSHOT'
 
 apply plugin: 'maven'
 
@@ -16,8 +16,9 @@ repositories {
 }
 
 task zipFramework(type: Zip) {
-   from ("build/Release-iphoneos") {
-       include '*.framework/*'
+   println "Zipping"
+   from ("HelloCocoa.framework") {
+       include '**'
    }
    
    archiveName 'HelloCocoa.zip'
@@ -31,6 +32,7 @@ artifacts {
 }
 
 uploadArchives {
+    println "Uploading"
     repositories {
         mavenDeployer {
             repository(url: "${nexusUrl}/repository/maven-releases/") {
@@ -41,4 +43,9 @@ uploadArchives {
             }
         }
     }
+}
+
+task uploadZip << {
+	zipFramework
+	uploadArchives
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HelloCocoa {
+public class HelloCocoaOther {
     public init (){
         print("Class has been initialised")
     }
